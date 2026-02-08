@@ -1,0 +1,63 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>MTECH FYIP ATTENDANCE TRACKER</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body class="home-page">
+
+    <!-- Floating bubbles -->
+    <ul class="bubbles">
+        <li></li><li></li><li></li><li></li><li></li>
+        <li></li><li></li><li></li><li></li><li></li>
+        <li></li><li></li><li></li><li></li><li></li>
+    </ul>
+
+    <!-- Main Card -->
+    <div class="card">
+        <h1>MTECH FYIP<br>ATTENDANCE TRACKER</h1>
+
+        <a href="/student" class="btn ripple">STUDENT LOGIN</a>
+        <a href="/cr" class="btn ripple">CR LOGIN</a>
+    </div>
+
+    <script>
+        // ===== Cursor Trail =====
+        document.addEventListener('mousemove', e => {
+            const trail = document.createElement('div');
+            trail.className = 'cursor';
+            trail.style.left = e.clientX + 'px';
+            trail.style.top = e.clientY + 'px';
+            document.body.appendChild(trail);
+            setTimeout(() => trail.remove(), 500);
+        });
+
+        // ===== Button Click Particles =====
+        const buttons = document.querySelectorAll('.btn');
+        buttons.forEach(btn => {
+            btn.addEventListener('click', e => {
+                for(let i=0;i<12;i++){
+                    const particle = document.createElement('span');
+                    particle.className = 'clickParticle';
+                    particle.style.left = e.clientX + 'px';
+                    particle.style.top = e.clientY + 'px';
+                    particle.style.background = `hsl(${Math.random()*50+30}, 100%, 50%)`;
+                    particle.style.position = 'fixed';
+                    particle.style.width = '6px';
+                    particle.style.height = '6px';
+                    particle.style.borderRadius = '50%';
+                    particle.style.transform = `translate(${Math.random()*100-50}px, ${Math.random()*100-50}px)`;
+                    particle.style.opacity = '0.8';
+                    document.body.appendChild(particle);
+                    setTimeout(()=>particle.remove(),600);
+                }
+            });
+        });
+    </script>
+    <head> 
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+</body>
+</html>
