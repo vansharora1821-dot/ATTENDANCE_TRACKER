@@ -1,0 +1,348 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Student Dashboard</title>
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<style> 
+    <style>
+/* ===== PREMIUM SCROLLING TABLE ===== */
+.table-wrapper {
+    max-height: 420px;
+    overflow-y: auto;
+    border-radius: 15px;
+    box-shadow: 0 15px 35px rgba(0,0,0,0.35);
+    transition: all 0.3s ease;
+}
+
+/* Smooth scrolling */
+.table-wrapper::-webkit-scrollbar {
+    width: 12px;
+}
+.table-wrapper::-webkit-scrollbar-track {
+    background: rgba(255,255,255,0.05);
+    border-radius: 10px;
+}
+.table-wrapper::-webkit-scrollbar-thumb {
+    background: rgba(243,156,18,0.7);
+    border-radius: 10px;
+    transition: background 0.3s ease;
+}
+.table-wrapper::-webkit-scrollbar-thumb:hover {
+    background: #f39c12;
+}
+
+/* Table row hover effect */
+table tr {
+    transition: all 0.3s ease, transform 0.3s ease;
+}
+table tr:hover {
+    background: rgba(243,156,18,0.15);
+    transform: translateY(-2px) scale(1.01);
+    box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+}
+
+/* Sticky headers */
+th {
+    position: sticky;
+    top: 0;
+    z-index: 2;
+    background: #f39c12;
+    color: #fff;
+    font-weight: bold;
+}
+</style>
+
+</style>
+<style>
+/* ================= RESET ================= */
+* { box-sizing: border-box; margin:0; padding:0; }
+
+/* ================= BODY ================= */
+body {
+    font-family: 'Segoe UI', system-ui, sans-serif;
+    background: linear-gradient(135deg, #1f1c2c, #f39c12);
+    padding: 20px;
+    color: #fff;
+    overflow-x: hidden;
+}
+
+/* ================= TOP NAV ================= */
+.navbar {
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    margin-bottom:25px;
+}
+.navbar .welcome { font-weight:bold; font-size:1.1em; }
+.navbar .buttons a {
+    margin-left:12px;
+    padding:10px 22px;
+    border-radius:25px;
+    font-weight:bold;
+    background:#f39c12;
+    color:#000;
+    text-decoration:none;
+    transition:0.3s ease, transform 0.3s ease, box-shadow 0.3s ease;
+}
+.navbar .buttons a:hover {
+    transform: translateY(-4px) scale(1.05);
+    box-shadow:0 12px 35px rgba(0,0,0,0.5);
+}
+
+/* ================= BACKGROUND PARTICLES ================= */
+.bg-particles span {
+    position: fixed;
+    width: 40px;
+    height: 40px;
+    background: rgba(255,255,255,0.15);
+    border-radius: 50%;
+    bottom: -80px;
+    animation: floatUp linear infinite;
+    animation-delay: calc(var(--i) * 0.5s);
+}
+@keyframes floatUp {
+    0% { transform: translateY(0) scale(1); }
+    50% { transform: translateY(-60vh) scale(1.2); }
+    100% { transform: translateY(-120vh) scale(1.4); }
+}
+
+/* ================= HEADINGS ================= */
+h1,h3 { text-align:center; font-weight:900; margin-bottom:20px; }
+
+/* ================= DASHBOARD GRID ================= */
+.dashboard {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+    gap: 25px;
+    margin-bottom: 30px;
+}
+
+/* ================= GLASS CARD ================= */
+.card {
+    background: rgba(255,255,255,0.08);
+    backdrop-filter: blur(20px);
+    border-radius: 26px;
+    padding: 25px;
+    box-shadow: 0 20px 45px rgba(0,0,0,0.4);
+    animation: fadeUp 0.9s ease forwards;
+    transition: 0.4s ease, transform 0.4s ease, box-shadow 0.4s ease;
+}
+.card:hover {
+    transform: translateY(-10px) scale(1.04) rotateZ(-0.5deg);
+    box-shadow: 0 40px 90px rgba(0,0,0,0.55);
+}
+@keyframes fadeUp { from {opacity:0; transform:translateY(40px);} to {opacity:1; transform:translateY(0);} }
+
+/* ================= WARNING ================= */
+
+
+@keyframes pulse { 50% { transform: scale(1.05); } }
+
+/* ================= TABLE ================= */
+.table-wrapper {
+    max-height: 420px;
+    overflow-y: auto;
+    overflow-x: hidden;
+    border-radius: 15px;
+    margin-top:15px;
+    animation: slideIn 1s ease forwards;
+}
+table {
+    width: 100%;
+    border-collapse: collapse;
+}
+th {
+    background: #f39c12;
+    position: sticky;
+    top: 0;
+    z-index: 2;
+    color:#fff;
+}
+td, th { padding:12px; text-align:center; font-weight:bold; color:#fff; }
+tr { transform: translateX(-30px); opacity:0; animation: slideRow 0.8s forwards; }
+tr:nth-child(even) { background: rgba(255,255,255,0.05); }
+tr:hover {
+    background: rgba(255,255,255,0.18);
+    transform: scale(1.02) translateX(0);
+    box-shadow: 0 4px 20px rgba(0,0,0,0.3);
+}
+@keyframes slideIn { from { opacity:0; transform: translateY(20px);} to {opacity:1; transform: translateY(0);} }
+@keyframes slideRow { to { transform:translateX(0); opacity:1;} }
+
+/* ================= BUTTON ================= */
+.btn {
+    padding: 12px 24px;
+    border-radius: 30px;
+    border:none;
+    font-weight:bold;
+    cursor:pointer;
+    background:#f39c12;
+    color:#000;
+    transition: 0.35s ease, transform 0.35s ease, box-shadow 0.35s ease;
+}
+.btn:hover {
+    transform: translateY(-4px) scale(1.05);
+    box-shadow: 0 18px 40px rgba(0,0,0,0.55);
+    animation: glow 1s infinite alternate;
+}
+@keyframes glow { 0% { box-shadow:0 0 10px rgba(243,156,18,0.3);} 100% { box-shadow:0 0 25px rgba(243,156,18,0.8);} }
+
+/* ================= CANVAS ================= */
+canvas {
+    height: 320px !important;
+    filter: drop-shadow(0 0 15px rgba(243,156,18,0.7));
+    transition: all 0.4s ease;
+}
+canvas:hover { transform: scale(1.02); }
+
+/* ================= PAGINATION ================= */
+.pagination {
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    gap:12px;
+    margin-top:25px;
+}
+.pagination a, .pagination span {
+    padding:10px 18px;
+    border-radius:16px;
+    font-weight:bold;
+    text-decoration:none;
+    color:#fff;
+    background: rgba(255,255,255,0.12);
+    transition: all 0.3s ease;
+}
+.pagination a:hover { background:#f39c12; color:#000; transform: translateY(-3px); box-shadow:0 10px 25px rgba(0,0,0,0.3);}
+.pagination .disabled { opacity:0.4; pointer-events:none; }
+.pagination .current { background:#f39c12; color:#000; }
+
+</style>
+</head>
+
+<body>
+
+<!-- NAVBAR -->
+<div class="navbar">
+    <div class="welcome"><strong>Welcome {{ name if name else "Student" }}</strong></div>
+    <div class="buttons">
+        <a href="/">Logout</a>
+    </div>
+</div>
+
+<!-- FLOATING PARTICLES -->
+<div class="bg-particles">
+    <span style="--i:0; left:5%; animation-duration:18s;"></span>
+    <span style="--i:1; left:25%; animation-duration:22s;"></span>
+    <span style="--i:2; left:45%; animation-duration:25s;"></span>
+    <span style="--i:3; left:65%; animation-duration:20s;"></span>
+    <span style="--i:4; left:85%; animation-duration:27s;"></span>
+</div>
+
+<h1>📊 STUDENT ATTENDANCE DASHBOARD</h1>
+
+
+<div class="dashboard">
+    <div class="card">
+        <h3>SUBJECT-WISE ATTENDANCE</h3>
+        <canvas id="subjectChart"></canvas>
+    </div>
+    <div class="card">
+        <h3>MONTHLY ATTENDANCE TREND</h3>
+        <canvas id="monthlyChart"></canvas>
+    </div>
+</div>
+
+<div class="card">
+<h3>ATTENDANCE RECORDS</h3>
+<div class="table-wrapper">
+<table>
+<thead>
+<tr><th>Date</th><th>Subject</th><th>Status</th></tr>
+</thead>
+<tbody>
+{% for row in records %}
+<tr>
+<td>{{ row[1] }}</td>
+<td>{{ row[0] }}</td>
+<td>{{ row[2] }}</td>
+</tr>
+{% endfor %}
+</tbody>
+</table>
+</div>
+
+<!-- PAGINATION -->
+<div class="pagination">
+    {% if page > 1 %}
+    <a href="{{ url_for('student_dashboard', page=page-1) }}">⬅ Prev</a>
+    {% else %}
+    <span class="disabled">⬅ Prev</span>
+    {% endif %}
+
+    <span class="current">Page {{ page }} / {{ total_pages }}</span>
+
+    {% if page < total_pages %}
+    <a href="{{ url_for('student_dashboard', page=page+1) }}">Next ➡</a>
+    {% else %}
+    <span class="disabled">Next ➡</span>
+    {% endif %}
+</div>
+
+</div>
+
+<script>
+/* SUBJECT BAR CHART */
+new Chart(document.getElementById("subjectChart"), {
+    type: "bar",
+    data: {
+        labels: {{ subject_labels | tojson }},
+        datasets: [{
+            label: "Attendance Presence %",
+            data: {{ subject_values | tojson }},
+            backgroundColor: "#f39c12",
+            barThickness: 14
+        }]
+    },
+    options: {
+        animation: { duration:1800, easing:"easeOutBounce" },
+        plugins: { legend: { labels:{ color:"#fff", font:{ weight:"bold" } } } },
+        scales: {
+            x:{ ticks:{ color:"#fff", font:{ weight:"bold" } } },
+            y:{ beginAtZero:true, max:100, ticks:{ color:"#fff", font:{ weight:"bold" } } }
+        }
+    }
+});
+
+/* MONTHLY LINE CHART */
+new Chart(document.getElementById("monthlyChart"), {
+    type:"line",
+    data:{
+        labels:{{ monthly_labels | tojson }},
+        datasets:[{
+            label:"Monthly Attendance %",
+            data:{{ monthly_values | tojson }},
+            borderColor:"#f39c12",
+            backgroundColor:"rgba(243,156,18,0.25)",
+            fill:true,
+            tension:0.4,
+            pointRadius:6,
+            pointHoverRadius:9
+        }]
+    },
+    options:{
+        animation:{duration:1800},
+        plugins:{ legend:{ labels:{ color:"#fff", font:{ weight:"bold" } } } },
+        scales:{
+            x:{ ticks:{ color:"#fff", font:{ weight:"bold" } } },
+            y:{ beginAtZero:true, max:100, ticks:{ color:"#fff", font:{ weight:"bold" } } }
+        }
+    }
+});
+</script>
+<head> 
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+</body>
+</html>

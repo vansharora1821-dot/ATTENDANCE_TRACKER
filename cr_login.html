@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>CR Login - MTECH FYIP ATTENDANCE TRACKER</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+
+<body class="home-page">
+
+<!-- Floating bubbles -->
+<ul class="bubbles">
+    <li></li><li></li><li></li><li></li><li></li>
+    <li></li><li></li><li></li><li></li><li></li>
+</ul>
+
+<div class="card">
+    <h1>MTECH FYIP<br>CR LOGIN</h1>
+
+    <!-- ERROR POPUP (INSIDE BOX) -->
+    {% with messages = get_flashed_messages(category_filter=["error"]) %}
+    {% if messages %}
+    <div class="error-popup">
+        <div class="error-box">
+            ❌ <strong>INVALID DETAILS</strong>
+        </div>
+    </div>
+    {% endif %}
+    {% endwith %}
+
+     <form method="POST" action="/cr">
+        <input type="text" name="name" placeholder="ENTER YOUR NAME" required>
+        <input type="password" name="password" placeholder="ENTER PASSWORD" required>
+        <button type="submit" class="btn glass ripple">LOGIN</button>
+    </form>
+</div>
+<head> 
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+
+<script src="{{ url_for('static', filename='script.js') }}"></script>
+
+
+</body>
+</html>

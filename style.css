@@ -1,0 +1,948 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Segoe UI', sans-serif;
+}
+a:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 10px 25px rgba(0,0,0,0.3);
+    background: rgba(243,156,18,0.8) !important;
+}
+
+body {
+    height: 100vh;
+    height : auto ;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+    background: linear-gradient(-45deg,
+        #ffe0a3,
+        #ffb347,
+        #ff8c00,
+        #e65100
+    );
+    background-size: 500% 500%;
+    animation: gradientMove 8s ease infinite;
+}
+
+@keyframes gradientMove {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+}
+
+/* ===== ONLY HOME PAGE ANIMATIONS ===== */
+body.home-page {
+    overflow: hidden;
+}
+
+/* ===== FLOATING BUBBLES ===== */
+.home-page .bubbles {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    list-style: none;
+    z-index: 0;
+}
+
+.home-page .bubbles li {
+    position: absolute;
+    bottom: -120px;
+    width: 25px;
+    height: 25px;
+    background: rgba(255,255,255,0.25);
+    border-radius: 50%;
+    animation: rise 20s infinite ease-in;
+}
+
+.home-page .bubbles li:nth-child(even){ width:15px; height:15px; }
+
+.home-page .bubbles li:nth-child(1){ left:5%; animation-duration:14s;}
+.home-page .bubbles li:nth-child(2){ left:15%; animation-duration:18s;}
+.home-page .bubbles li:nth-child(3){ left:25%; animation-duration:16s;}
+.home-page .bubbles li:nth-child(4){ left:35%; animation-duration:22s;}
+.home-page .bubbles li:nth-child(5){ left:45%; animation-duration:20s;}
+.home-page .bubbles li:nth-child(6){ left:55%; animation-duration:17s;}
+.home-page .bubbles li:nth-child(7){ left:65%; animation-duration:23s;}
+.home-page .bubbles li:nth-child(8){ left:75%; animation-duration:19s;}
+.home-page .bubbles li:nth-child(9){ left:85%; animation-duration:21s;}
+.home-page .bubbles li:nth-child(10){ left:95%; animation-duration:18s;}
+
+@keyframes rise {
+    0% { transform: translateY(0); opacity: 0; }
+    50% { opacity: 0.6; }
+    100% { transform: translateY(-1300px); opacity: 0; }
+}
+
+/* ===== CARD ===== */
+.card {
+    z-index: 2;
+    background: rgba(255,255,255,0.22);
+    backdrop-filter: blur(28px);
+    padding: 70px 90px;
+    border-radius: 45px;
+    text-align: center;
+    box-shadow: 0 30px 70px rgba(0,0,0,0.4);
+    animation: floatCard 6s ease-in-out infinite;
+    transition: transform 0.4s ease;
+}
+
+.card:hover {
+    transform: rotateX(4deg) rotateY(-4deg) scale(1.02);
+}
+
+@keyframes floatCard {
+    0% { transform: translateY(0); }
+    50% { transform: translateY(-15px); }
+    100% { transform: translateY(0); }
+}
+
+.card h1 {
+    color: white;
+    font-size: 44px;
+    margin-bottom: 45px;
+    text-shadow: 0 0 20px rgba(255,255,255,0.8);
+    animation: glowText 3s ease-in-out infinite alternate;
+}
+
+@keyframes glowText {
+    from { text-shadow: 0 0 15px rgba(255,255,255,0.6); }
+    to { text-shadow: 0 0 30px rgba(255,200,120,1); }
+}
+
+/* ===== BUTTONS ===== */
+.btn {
+    display: block;
+    position: relative;
+    overflow: hidden;
+    text-decoration: none;
+    margin: 20px 0;
+    padding: 24px;
+    border-radius: 70px;
+    color: white;
+    font-size: 24px;
+    font-weight: bold;
+    background: rgba(255,255,255,0.28);
+    backdrop-filter: blur(20px);
+    border: 1px solid rgba(255,255,255,0.4);
+    transition: all 0.3s ease;
+    animation: pulseBtn 4s infinite;
+}
+
+@keyframes pulseBtn {
+    0% { box-shadow: 0 0 0 rgba(255,255,255,0); }
+    50% { box-shadow: 0 0 30px rgba(255,200,120,0.8); }
+    100% { box-shadow: 0 0 0 rgba(255,255,255,0); }
+}
+
+.btn:hover {
+    transform: scale(1.1);
+}
+
+.btn:active {
+    transform: scale(0.95);
+}
+
+/* ===== RIPPLE EFFECT ===== */
+.btn::after {
+    content: "";
+    position: absolute;
+    width: 200%;
+    height: 200%;
+    background: radial-gradient(circle, rgba(255,255,255,0.5) 10%, transparent 60%);
+    top: -50%;
+    left: -50%;
+    opacity: 0;
+    transition: opacity 0.6s;
+}
+
+.btn:active::after {
+    opacity: 1;
+}
+
+/* ===== CURSOR TRAIL ===== */
+.home-page .cursor {
+    position: fixed;
+    width: 8px;
+    height: 8px;
+    background: rgba(255,200,120,0.8);
+    border-radius: 50%;
+    pointer-events: none;
+    animation: fadeOut 0.5s linear forwards;
+}
+
+@keyframes fadeOut {
+    to {
+        transform: scale(2);
+        opacity: 0;
+    }
+}
+/* ===== ENHANCED BUTTON ANIMATIONS ===== */
+.btn:hover {
+    animation: glowBtn 1.2s infinite alternate;
+}
+
+@keyframes glowBtn {
+    from { box-shadow: 0 0 15px rgba(255,200,120,0.6); }
+    to { box-shadow: 0 0 30px rgba(255,255,255,0.9); }
+}
+
+/* ===== CARD SHIMMER ===== */
+.card {
+    position: relative;
+    overflow: hidden;
+}
+
+.card::before {
+    content:"";
+    position: absolute;
+    top: 0;
+    left: -75%;
+    width: 50%;
+    height: 100%;
+    background: linear-gradient(120deg, rgba(255,255,255,0.1), rgba(255,255,255,0.3), rgba(255,255,255,0.1));
+    transform: skewX(-25deg);
+    animation: shimmer 2.5s infinite;
+}
+
+@keyframes shimmer {
+    0% { left: -75%; }
+    100% { left: 125%; }
+}
+
+/* ===== CLICK PARTICLES ===== */
+.clickParticle {
+    pointer-events: none;
+    position: fixed;
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    opacity: 0.8;
+    animation: burst 0.6s ease-out forwards;
+}
+
+@keyframes burst {
+    0% { transform: scale(0) translate(0,0); opacity: 1; }
+    100% { transform: scale(1.5) translate(var(--dx,0px), var(--dy,0px)); opacity: 0; }
+}
+
+/* ===== CURSOR TRAIL ===== */
+.cursor {
+    position: fixed;
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: rgba(255,200,120,0.8);
+    pointer-events: none;
+    animation: fadeOut 0.5s linear forwards;
+}
+
+@keyframes fadeOut {
+    to { transform: scale(2); opacity: 0; }
+}
+
+
+    /* ===== ALIGNMENT OF INPUTS ===== */
+.card form input {
+    display: block;
+    width: 80%;
+    margin: 15px auto;
+    padding: 15px 20px;
+    font-size: 18px;
+    border-radius: 35px;
+    border: 1px solid rgba(255,255,255,0.4);
+    background: rgba(255,255,255,0.22);
+    color: white;
+    backdrop-filter: blur(15px);
+    text-align: center;
+    font-weight: bold;
+    transition: 0.3s all ease;
+}
+
+.card form input:focus {
+    outline: none;
+    box-shadow: 0 0 15px rgba(255,200,120,0.7);
+    transform: scale(1.05);
+}
+
+/* ===== ERROR POPUP TABLE ===== */
+.error-popup {
+    margin: 15px auto 25px auto;
+    padding: 15px;
+    width: 85%;
+    max-width: 340px;
+    background: rgba(255,0,0,0.25);
+    border: 2px solid rgba(255,0,0,0.7);
+    border-radius: 30px;
+    font-weight: bold;
+    color: white;
+    text-align: center;
+    font-size: 20px;
+    box-shadow: 0 0 35px rgba(255,0,0,0.7);
+    animation: shake 0.5s;
+    z-index: 10;
+}
+
+/* Shake animation for error popup */
+@keyframes shake {
+    0% { transform: translateX(0px); }
+    25% { transform: translateX(-7px); }
+    50% { transform: translateX(7px); }
+    75% { transform: translateX(-7px); }
+    100% { transform: translateX(0px); }
+}
+/* ===== PREMIUM ADD-ON ANIMATIONS ===== */
+
+/* 1. Floating sparkles background */
+@keyframes sparkleMove {
+    0% { transform: translateY(0) rotate(0deg); opacity: 0.3; }
+    50% { opacity: 1; }
+    100% { transform: translateY(-1200px) rotate(360deg); opacity: 0; }
+}
+
+.sparkle {
+    position: absolute;
+    width: 8px;
+    height: 8px;
+    background: rgba(255,255,255,0.8);
+    border-radius: 50%;
+    top: 100%;
+    animation: sparkleMove 10s linear infinite;
+}
+
+/* Add multiple sparkles */
+.sparkle:nth-child(1) { left: 5%; animation-duration: 12s; }
+.sparkle:nth-child(2) { left: 15%; animation-duration: 9s; }
+.sparkle:nth-child(3) { left: 25%; animation-duration: 15s; }
+.sparkle:nth-child(4) { left: 40%; animation-duration: 14s; }
+.sparkle:nth-child(5) { left: 55%; animation-duration: 18s; }
+.sparkle:nth-child(6) { left: 65%; animation-duration: 11s; }
+.sparkle:nth-child(7) { left: 75%; animation-duration: 13s; }
+.sparkle:nth-child(8) { left: 85%; animation-duration: 16s; }
+.sparkle:nth-child(9) { left: 95%; animation-duration: 12s; }
+
+/* 2. Card extra pulse */
+.card {
+    animation: floatCard 6s ease-in-out infinite, cardPulse 4s ease-in-out infinite;
+}
+
+@keyframes cardPulse {
+    0% { box-shadow: 0 30px 70px rgba(0,0,0,0.4); }
+    50% { box-shadow: 0 40px 100px rgba(255,200,120,0.5); }
+    100% { box-shadow: 0 30px 70px rgba(0,0,0,0.4); }
+}
+
+/* 3. Button neon glow */
+.btn {
+    animation: pulseBtn 4s infinite, btnNeon 2s infinite alternate;
+}
+
+@keyframes btnNeon {
+    0% { text-shadow: 0 0 5px #fff, 0 0 10px #ffbb33; }
+    50% { text-shadow: 0 0 15px #fff, 0 0 25px #ff9900; }
+    100% { text-shadow: 0 0 5px #fff, 0 0 10px #ffbb33; }
+}
+
+/* 4. Error popup shimmer */
+.error-popup {
+    animation: shake 0.5s, popupShimmer 2s ease-in-out infinite alternate;
+}
+
+@keyframes popupShimmer {
+    from { box-shadow: 0 0 20px rgba(255,0,0,0.5); }
+    to { box-shadow: 0 0 40px rgba(255,0,0,0.8); }
+}
+
+/* 5. Cursor multi-trail particles */
+.cursor-trail {
+    position: fixed;
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    pointer-events: none;
+    background: rgba(255,200,120,0.9);
+    mix-blend-mode: lighten;
+    animation: trailFade 0.6s linear forwards;
+}
+
+@keyframes trailFade {
+    0% { transform: scale(1); opacity: 1; }
+    100% { transform: scale(2.5); opacity: 0; }
+}
+
+/* ===== CURSOR TRAIL ===== */
+.cursorTrail {
+    position: fixed;
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: rgba(255,200,120,0.6);
+    pointer-events: none;
+    mix-blend-mode: screen;
+    animation: fadeOut 0.5s linear forwards;
+}
+
+/* ===== CLICK PARTICLES / CONFETTI ===== */
+.clickParticle.confettiPiece {
+    position: fixed;
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    pointer-events: none;
+    opacity: 1;
+    animation: burst 0.6s ease-out forwards;
+}
+
+/* ===== MICRO PARTICLES ON BUTTON HOVER ===== */
+.microParticle {
+    position: fixed;
+    width: 3px;
+    height: 3px;
+    border-radius: 50%;
+    background: rgba(255,255,255,0.7);
+    animation: microFloat 1s ease-out forwards;
+}
+
+@keyframes microFloat {
+    0% { transform: translate(0,0) scale(1); opacity:1; }
+    100% { transform: translate(var(--dx,0px), var(--dy,-20px)) scale(0.5); opacity:0; }
+}
+
+/* ===== FLOATING SPARKLES ===== */
+.floatingSparkle {
+    position: fixed;
+    background: rgba(255,255,255,0.6);
+    border-radius: 50%;
+    animation: sparkleMove 8s linear infinite;
+}
+
+@keyframes sparkleMove {
+    0% { transform: translateY(0px); opacity:0.2; }
+    50% { opacity:0.7; }
+    100% { transform: translateY(-1200px); opacity:0; }
+}
+
+/* ===== PARTICLE BURST ===== */
+@keyframes burst {
+    0% { transform: scale(0) translate(0,0); opacity:1; }
+    100% { transform: scale(1.5) translate(var(--dx,0px), var(--dy,0px)); opacity:0; }
+}
+
+/* ===== FADE OUT ===== */
+@keyframes fadeOut {
+    to { transform: scale(2); opacity:0; }
+}
+/* Enhanced floating bubbles */
+.bubbles li {
+    animation: rise 20s infinite ease-in, bubbleRotate 10s infinite linear, bubbleScale 6s infinite ease-in-out;
+    background: rgba(255,255,255,0.25);
+    backdrop-filter: blur(2px);
+}
+
+@keyframes bubbleRotate {
+    0% { transform: rotate(0deg); }
+    50% { transform: rotate(180deg); }
+    100% { transform: rotate(360deg); }
+}
+
+@keyframes bubbleScale {
+    0%, 100% { transform: scale(1); }
+    50% { transform: scale(1.4); }
+}
+.card {
+    animation: floatCard 6s ease-in-out infinite, cardGlow 3s ease-in-out infinite alternate, cardRotate 8s ease-in-out infinite;
+}
+
+@keyframes cardGlow {
+    0% { box-shadow: 0 30px 70px rgba(0,0,0,0.4); }
+    50% { box-shadow: 0 35px 90px rgba(255,200,120,0.6); }
+    100% { box-shadow: 0 30px 70px rgba(0,0,0,0.4); }
+}
+
+@keyframes cardRotate {
+    0% { transform: rotateY(0deg); }
+    50% { transform: rotateY(2deg); }
+    100% { transform: rotateY(0deg); }
+}
+.card {
+    animation: floatCard 6s ease-in-out infinite, cardGlow 3s ease-in-out infinite alternate, cardRotate 8s ease-in-out infinite;
+}
+
+@keyframes cardGlow {
+    0% { box-shadow: 0 30px 70px rgba(0,0,0,0.4); }
+    50% { box-shadow: 0 35px 90px rgba(255,200,120,0.6); }
+    100% { box-shadow: 0 30px 70px rgba(0,0,0,0.4); }
+}
+
+@keyframes cardRotate {
+    0% { transform: rotateY(0deg); }
+    50% { transform: rotateY(2deg); }
+    100% { transform: rotateY(0deg); }
+}
+.btn.glass {
+    animation: pulseBtn 4s infinite, neonFlicker 2s infinite alternate;
+}
+
+@keyframes neonFlicker {
+    0%,100% { box-shadow: 0 0 15px rgba(255,200,120,0.6), 0 0 30px rgba(255,255,255,0.2); }
+    25% { box-shadow: 0 0 20px rgba(255,255,120,0.8), 0 0 35px rgba(255,255,255,0.3); }
+    50% { box-shadow: 0 0 25px rgba(255,220,140,0.9), 0 0 40px rgba(255,255,255,0.4); }
+    75% { box-shadow: 0 0 20px rgba(255,200,120,0.7), 0 0 35px rgba(255,255,255,0.3); }
+}
+.floatingParticle {
+    position: fixed;
+    width: 3px;
+    height: 3px;
+    border-radius: 50%;
+    background: rgba(255,255,255,0.3);
+    animation: drift 12s linear infinite;
+}
+
+@keyframes drift {
+    0% { transform: translate(0px,0px); opacity:0.2; }
+    50% { opacity:0.7; }
+    100% { transform: translate(200px,-100px); opacity:0; }
+}
+.flash {
+    padding: 12px;
+    margin: 15px auto;
+    width: 90%;
+    max-width: 400px;
+    text-align: center;
+    border-radius: 6px;
+    font-weight: bold;
+    animation: fadeIn 0.4s ease-in-out;
+}
+
+.flash.error {
+    background-color: #ffe6e6;
+    color: #b30000;
+    border: 1px solid #ff4d4d;
+}
+
+.flash.success {
+    background-color: #e6ffea;
+    color: #006600;
+    border: 1px solid #33cc66;
+}
+/* ===== ADD-ON: FLOATING FLASH ALERT ===== */
+.flash {
+    position: fixed;
+    top: -80px;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 9999;
+    animation: slideDownFlash 0.6s ease forwards;
+}
+
+@keyframes slideDownFlash {
+    to {
+        top: 25px;
+    }
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(-10px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+/* ===== ADD-ON: STABLE CENTERED LOGIN CONTAINER ===== */
+.login-wrapper {
+    position: fixed;
+    inset: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 5;
+}
+
+/* prevents layout shift on error */
+.login-wrapper .card {
+    transform-origin: center;
+}
+/* ===== ADD-ON FIX: ALLOW BUTTON CLICKS ===== */
+.login-wrapper {
+    pointer-events: none;
+}
+
+.login-wrapper .card,
+.login-wrapper .card * {
+    pointer-events: auto;
+}
+
+/* Flash should not block clicks */
+.flash {
+    pointer-events: none;
+}
+
+
+/* ===============================
+   PREMIUM IN-CARD ERROR ALERT
+   =============================== */
+
+/* Container stays inside card */
+.card .flash,
+.card .error-popup {
+    position: relative;
+    margin: 20px auto 25px auto;
+    padding: 16px 24px;
+    width: 85%;
+    max-width: 360px;
+
+    background: linear-gradient(
+        135deg,
+        rgba(255, 60, 60, 0.35),
+        rgba(180, 0, 0, 0.45)
+    );
+
+    border-radius: 40px;
+    border: 2px solid rgba(255, 80, 80, 0.9);
+
+    color: #fff;
+    font-size: 19px;
+    font-weight: 800;
+    letter-spacing: 0.5px;
+    text-align: center;
+
+    box-shadow:
+        0 0 25px rgba(255, 0, 0, 0.6),
+        inset 0 0 10px rgba(255, 255, 255, 0.2);
+
+    animation: errorPop 0.5s ease-out, errorGlow 2s infinite alternate;
+    z-index: 5;
+}
+
+/* Entrance animation */
+@keyframes errorPop {
+    0% {
+        transform: scale(0.6);
+        opacity: 0;
+    }
+    60% {
+        transform: scale(1.08);
+        opacity: 1;
+    }
+    100% {
+        transform: scale(1);
+    }
+}
+
+/* Soft glowing pulse */
+@keyframes errorGlow {
+    from {
+        box-shadow:
+            0 0 18px rgba(255, 60, 60, 0.6),
+            inset 0 0 8px rgba(255, 255, 255, 0.15);
+    }
+    to {
+        box-shadow:
+            0 0 35px rgba(255, 0, 0, 0.9),
+            inset 0 0 14px rgba(255, 255, 255, 0.25);
+    }
+}
+
+/* Optional ❌ icon look (no HTML change needed) */
+.card .flash::before,
+.card .error-popup::before {
+    content: "⚠";
+    display: inline-block;
+    margin-right: 8px;
+    font-size: 20px;
+    animation: warningPulse 1.2s infinite;
+}
+
+@keyframes warningPulse {
+    0%, 100% { transform: scale(1); }
+    50% { transform: scale(1.2); }
+}
+
+.attendance-list {
+    margin-top: 15px;
+    max-height: 250px;
+    overflow-y: auto;
+}
+
+.student-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin: 8px 0;
+    padding: 6px 10px;
+    border-radius: 12px;
+    background: rgba(255,255,255,0.08);
+}
+
+.toggle {
+    font-size: 14px;
+    margin-left: 10px;
+    cursor: pointer;
+}
+
+.success-popup {
+    background: rgba(0, 255, 0, 0.15);
+    border: 2px solid #00ff88;
+    border-radius: 14px;
+    padding: 10px;
+    color: #00ff88;
+    font-weight: bold;
+    animation: pop 0.5s ease;
+}
+/* ===== SUBJECT DROPDOWN ===== */
+.subject-select {
+    padding: 16px 30px;
+    font-size: 20px;
+    font-weight: bold;
+    border-radius: 40px;
+    background: rgba(255,255,255,0.25);
+    color: white;
+    border: 2px solid rgba(255,255,255,0.4);
+    backdrop-filter: blur(15px);
+    text-align: center;
+    box-shadow: 0 0 25px rgba(255,200,120,0.6);
+}
+
+/* ===== TABLE ===== */
+.attendance-table {
+    width: 100%;
+    border-collapse: collapse;
+    color: white;
+    font-size: 18px;
+    font-weight: bold;
+}
+
+.attendance-table th,
+.attendance-table td {
+    padding: 18px;
+    text-align: center;
+}
+
+.attendance-table thead {
+    background: rgba(255,255,255,0.25);
+}
+
+.attendance-table tbody tr {
+    background: rgba(255,255,255,0.15);
+    transition: 0.3s;
+}
+
+.attendance-table tbody tr:hover {
+    background: rgba(255,200,120,0.25);
+}
+
+/* ===== TOGGLE PILLS ===== */
+.toggle-group {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+}
+
+.toggle-group input {
+    display: none;
+}
+
+.pill {
+    padding: 10px 22px;
+    border-radius: 50px;
+    cursor: pointer;
+    font-weight: bold;
+    transition: 0.4s ease;
+    border: 2px solid transparent;
+}
+
+.present {
+    background: rgba(0,255,0,0.25);
+    border-color: rgba(0,255,0,0.8);
+}
+
+.absent {
+    background: rgba(255,0,0,0.25);
+    border-color: rgba(255,0,0,0.8);
+}
+
+.toggle-group input:checked + label {
+    transform: scale(1.1);
+    box-shadow: 0 0 20px currentColor;
+}
+
+/* Color glow */
+input[id^="p"]:checked + .present {
+    color: #00ff99;
+}
+
+input[id^="a"]:checked + .absent {
+    color: #ff4d4d;
+}
+/* ================================
+   LEVEL 5 – PREMIUM CR ADD-ONS
+   ================================ */
+
+/* Make table slightly smaller */
+.attendance-table {
+    font-size: 16px;
+}
+
+.attendance-table th,
+.attendance-table td {
+    padding: 14px;
+}
+
+/* Default pill look (theme orange glass) */
+.pill {
+    background: rgba(255, 165, 0, 0.22);
+    color: #fff;
+    border: 2px solid rgba(255, 200, 120, 0.6);
+    box-shadow: inset 0 0 10px rgba(255,255,255,0.15);
+}
+
+/* Hover feedback */
+.pill:hover {
+    transform: scale(1.08);
+    box-shadow: 0 0 15px rgba(255,200,120,0.6);
+}
+
+/* PRESENT active */
+input:checked + .present {
+    background: linear-gradient(135deg, #00ff99, #00cc66);
+    color: #003300;
+    box-shadow: 0 0 25px rgba(0,255,150,0.9);
+}
+
+/* ABSENT active */
+input:checked + .absent {
+    background: linear-gradient(135deg, #ff4d4d, #cc0000);
+    color: #330000;
+    box-shadow: 0 0 25px rgba(255,0,0,0.9);
+}
+
+/* ===== ROW SLIDE + HIGHLIGHT EFFECT ===== */
+.attendance-table tbody tr {
+    position: relative;
+    transition: background 0.4s ease;
+}
+
+/* Slide animation trigger */
+.attendance-table input:checked {
+    animation: none;
+}
+
+.attendance-table input:checked ~ label {
+    animation: markSlide 0.45s ease-out;
+}
+
+/* Row glow when marked */
+.attendance-table input:checked {
+    accent-color: transparent;
+}
+
+.attendance-table input:checked
+    ~ label
+    ~ label {
+    animation: none;
+}
+
+.attendance-table input:checked
+    ~ label {
+    filter: brightness(1.1);
+}
+
+/* Keyframes */
+@keyframes markSlide {
+    0% {
+        transform: translateX(-8px);
+        opacity: 0.6;
+    }
+    60% {
+        transform: translateX(4px);
+        opacity: 1;
+    }
+    100% {
+        transform: translateX(0);
+    }
+}
+
+/* Subtle row pulse */
+.attendance-table tbody tr:has(input:checked) {
+    background: rgba(255,255,255,0.22);
+    box-shadow: inset 0 0 15px rgba(255,200,120,0.35);
+}
+/* ================================
+   LEVEL 5 – TABLE PAGINATION/SLIDER
+   ================================ */
+
+.table-wrapper {
+    max-height: 600px; /* Show approx 10 rows */
+    overflow-y: auto;
+    scrollbar-width: thin; /* Firefox */
+    scrollbar-color: #ffa500 transparent; /* Orange theme */
+    border-radius: 15px;
+    box-shadow: inset 0 0 15px rgba(255,200,120,0.2);
+}
+
+/* Chrome, Edge, Safari */
+.table-wrapper::-webkit-scrollbar {
+    width: 10px;
+}
+
+.table-wrapper::-webkit-scrollbar-track {
+    background: rgba(255,165,0,0.1);
+    border-radius: 15px;
+}
+
+.table-wrapper::-webkit-scrollbar-thumb {
+    background: rgba(255,165,0,0.5);
+    border-radius: 10px;
+    transition: background 0.3s;
+}
+
+.table-wrapper::-webkit-scrollbar-thumb:hover {
+    background: rgba(255,165,0,0.8);
+}
+
+/* Smooth scroll */
+.table-wrapper {
+    scroll-behavior: smooth;
+}
+/* Smooth mobile table scroll */
+.table-wrapper {
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+}
+
+table {
+    min-width: 520px;
+}
+/* Mobile Landscape */
+@media (max-width: 900px) and (orientation: landscape) {
+    .dashboard {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+@media (max-width: 600px) {
+    canvas {
+        height: 240px !important;
+    }
+}
+/* ================= STEP 2: RESPONSIVE LAYOUT SWITCH ================= */
+
+/* DESKTOP / LAPTOP */
+@media (min-width: 901px) {
+    .dashboard {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+/* MOBILE / TABLET */
+@media (max-width: 900px) {
+    .dashboard {
+        grid-template-columns: 1fr;
+    }
+
+    body {
+        padding: 12px;
+    }
+
+    h1 {
+        font-size: 22px;
+    }
+}

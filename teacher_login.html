@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Teacher Login - MTECH FYIP ATTENDANCE TRACKER</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body class="home-page">
+
+<ul class="bubbles">
+    <li></li><li></li><li></li><li></li><li></li>
+    <li></li><li></li><li></li><li></li><li></li>
+</ul>
+
+<div class="card">
+    <h1>MTECH FYIP<br>TEACHER LOGIN</h1>
+
+    {% with messages = get_flashed_messages(category_filter=["error"]) %}
+    {% if messages %}
+    <div class="error-popup">
+        <table>
+            <tr>
+                <td>⚠️ ENTER VALID DETAILS ⚠️</td>
+            </tr>
+        </table>
+    </div>
+    {% endif %}
+    {% endwith %}
+
+    <form method="POST" action="/teacher">
+        <input type="password" name="password" placeholder="ENTER PASSWORD " required>
+        <button type="submit" class="btn glass ripple">LOGIN</button>
+    </form>
+</div>
+
+<script src="{{ url_for('static', filename='script.js') }}"></script>
+</body>
+</html>
